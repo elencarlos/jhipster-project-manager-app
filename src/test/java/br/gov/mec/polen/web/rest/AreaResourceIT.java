@@ -8,6 +8,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import br.gov.mec.polen.IntegrationTest;
 import br.gov.mec.polen.domain.Area;
 import br.gov.mec.polen.repository.AreaRepository;
+import br.gov.mec.polen.service.dto.AreaDTO;
+import br.gov.mec.polen.service.mapper.AreaMapper;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
@@ -40,6 +42,9 @@ class AreaResourceIT {
 
     @Autowired
     private AreaRepository areaRepository;
+
+    @Autowired
+    private AreaMapper areaMapper;
 
     @Autowired
     private EntityManager em;

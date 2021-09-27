@@ -1,10 +1,10 @@
 package br.gov.mec.polen.web.rest;
 
-import br.gov.mec.polen.domain.EfficiencyResult;
 import br.gov.mec.polen.repository.EfficiencyResultRepository;
 import br.gov.mec.polen.service.EfficiencyResultQueryService;
 import br.gov.mec.polen.service.EfficiencyResultService;
 import br.gov.mec.polen.service.criteria.EfficiencyResultCriteria;
+import br.gov.mec.polen.service.dto.EfficiencyResultDTO;
 import br.gov.mec.polen.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -51,9 +51,9 @@ public class EfficiencyResultResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of efficiencyResults in body.
      */
     @GetMapping("/efficiency-results")
-    public ResponseEntity<List<EfficiencyResult>> getAllEfficiencyResults(EfficiencyResultCriteria criteria) {
+    public ResponseEntity<List<EfficiencyResultDTO>> getAllEfficiencyResults(EfficiencyResultCriteria criteria) {
         log.debug("REST request to get EfficiencyResults by criteria: {}", criteria);
-        List<EfficiencyResult> entityList = efficiencyResultQueryService.findByCriteria(criteria);
+        List<EfficiencyResultDTO> entityList = efficiencyResultQueryService.findByCriteria(criteria);
         return ResponseEntity.ok().body(entityList);
     }
 
@@ -72,13 +72,13 @@ public class EfficiencyResultResource {
     /**
      * {@code GET  /efficiency-results/:id} : get the "id" efficiencyResult.
      *
-     * @param id the id of the efficiencyResult to retrieve.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the efficiencyResult, or with status {@code 404 (Not Found)}.
+     * @param id the id of the efficiencyResultDTO to retrieve.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the efficiencyResultDTO, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/efficiency-results/{id}")
-    public ResponseEntity<EfficiencyResult> getEfficiencyResult(@PathVariable Long id) {
+    public ResponseEntity<EfficiencyResultDTO> getEfficiencyResult(@PathVariable Long id) {
         log.debug("REST request to get EfficiencyResult : {}", id);
-        Optional<EfficiencyResult> efficiencyResult = efficiencyResultService.findOne(id);
-        return ResponseUtil.wrapOrNotFound(efficiencyResult);
+        Optional<EfficiencyResultDTO> efficiencyResultDTO = efficiencyResultService.findOne(id);
+        return ResponseUtil.wrapOrNotFound(efficiencyResultDTO);
     }
 }

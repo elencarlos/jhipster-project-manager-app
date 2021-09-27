@@ -4,6 +4,8 @@ import br.gov.mec.polen.domain.*; // for static metamodels
 import br.gov.mec.polen.domain.EfficiencyResult;
 import br.gov.mec.polen.repository.EfficiencyResultRepository;
 import br.gov.mec.polen.service.criteria.EfficiencyResultCriteria;
+import br.gov.mec.polen.service.dto.EfficiencyResultDTO;
+import br.gov.mec.polen.service.mapper.EfficiencyResultMapper;
 import java.util.List;
 import javax.persistence.criteria.JoinType;
 import org.slf4j.Logger;
@@ -19,7 +21,7 @@ import tech.jhipster.service.QueryService;
  * Service for executing complex queries for {@link EfficiencyResult} entities in the database.
  * The main input is a {@link EfficiencyResultCriteria} which gets converted to {@link Specification},
  * in a way that all the filters must apply.
- * It returns a {@link List} of {@link EfficiencyResult} or a {@link Page} of {@link EfficiencyResult} which fulfills the criteria.
+ * It returns a {@link List} of {@link EfficiencyResultDTO} or a {@link Page} of {@link EfficiencyResultDTO} which fulfills the criteria.
  */
 @Service
 @Transactional(readOnly = true)
@@ -29,33 +31,39 @@ public class EfficiencyResultQueryService extends QueryService<EfficiencyResult>
 
     private final EfficiencyResultRepository efficiencyResultRepository;
 
-    public EfficiencyResultQueryService(EfficiencyResultRepository efficiencyResultRepository) {
+    private final EfficiencyResultMapper efficiencyResultMapper;
+
+    public EfficiencyResultQueryService(
+        EfficiencyResultRepository efficiencyResultRepository,
+        EfficiencyResultMapper efficiencyResultMapper
+    ) {
         this.efficiencyResultRepository = efficiencyResultRepository;
+        this.efficiencyResultMapper = efficiencyResultMapper;
     }
 
     /**
-     * Return a {@link List} of {@link EfficiencyResult} which matches the criteria from the database.
+     * Return a {@link List} of {@link EfficiencyResultDTO} which matches the criteria from the database.
      * @param criteria The object which holds all the filters, which the entities should match.
      * @return the matching entities.
      */
     @Transactional(readOnly = true)
-    public List<EfficiencyResult> findByCriteria(EfficiencyResultCriteria criteria) {
+    public List<EfficiencyResultDTO> findByCriteria(EfficiencyResultCriteria criteria) {
         log.debug("find by criteria : {}", criteria);
         final Specification<EfficiencyResult> specification = createSpecification(criteria);
-        return efficiencyResultRepository.findAll(specification);
+        return efficiencyResultMapper.toDto(efficiencyResultRepository.findAll(specification));
     }
 
     /**
-     * Return a {@link Page} of {@link EfficiencyResult} which matches the criteria from the database.
+     * Return a {@link Page} of {@link EfficiencyResultDTO} which matches the criteria from the database.
      * @param criteria The object which holds all the filters, which the entities should match.
      * @param page The page, which should be returned.
      * @return the matching entities.
      */
     @Transactional(readOnly = true)
-    public Page<EfficiencyResult> findByCriteria(EfficiencyResultCriteria criteria, Pageable page) {
+    public Page<EfficiencyResultDTO> findByCriteria(EfficiencyResultCriteria criteria, Pageable page) {
         log.debug("find by criteria : {}, page: {}", criteria, page);
         final Specification<EfficiencyResult> specification = createSpecification(criteria);
-        return efficiencyResultRepository.findAll(specification, page);
+        return efficiencyResultRepository.findAll(specification, page).map(efficiencyResultMapper::toDto);
     }
 
     /**

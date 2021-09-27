@@ -7,7 +7,7 @@
   ],
   "relationships": [],
   "service": "serviceClass",
-  "dto": "no",
+  "dto": "mapstruct",
   "jpaMetamodelFiltering": false,
   "readOnly": true,
   "pagination": "no",

@@ -1,8 +1,8 @@
 package br.gov.mec.polen.web.rest;
 
-import br.gov.mec.polen.domain.Area;
 import br.gov.mec.polen.repository.AreaRepository;
 import br.gov.mec.polen.service.AreaService;
+import br.gov.mec.polen.service.dto.AreaDTO;
 import br.gov.mec.polen.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -41,7 +41,7 @@ public class AreaResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of areas in body.
      */
     @GetMapping("/areas")
-    public List<Area> getAllAreas() {
+    public List<AreaDTO> getAllAreas() {
         log.debug("REST request to get all Areas");
         return areaService.findAll();
     }
@@ -49,13 +49,13 @@ public class AreaResource {
     /**
      * {@code GET  /areas/:id} : get the "id" area.
      *
-     * @param id the id of the area to retrieve.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the area, or with status {@code 404 (Not Found)}.
+     * @param id the id of the areaDTO to retrieve.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the areaDTO, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/areas/{id}")
-    public ResponseEntity<Area> getArea(@PathVariable Long id) {
+    public ResponseEntity<AreaDTO> getArea(@PathVariable Long id) {
         log.debug("REST request to get Area : {}", id);
-        Optional<Area> area = areaService.findOne(id);
-        return ResponseUtil.wrapOrNotFound(area);
+        Optional<AreaDTO> areaDTO = areaService.findOne(id);
+        return ResponseUtil.wrapOrNotFound(areaDTO);
     }
 }

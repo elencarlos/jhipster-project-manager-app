@@ -2,8 +2,12 @@ package br.gov.mec.polen.service;
 
 import br.gov.mec.polen.domain.Area;
 import br.gov.mec.polen.repository.AreaRepository;
+import br.gov.mec.polen.service.dto.AreaDTO;
+import br.gov.mec.polen.service.mapper.AreaMapper;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -20,40 +24,44 @@ public class AreaService {
 
     private final AreaRepository areaRepository;
 
-    public AreaService(AreaRepository areaRepository) {
+    private final AreaMapper areaMapper;
+
+    public AreaService(AreaRepository areaRepository, AreaMapper areaMapper) {
         this.areaRepository = areaRepository;
+        this.areaMapper = areaMapper;
     }
 
     /**
      * Save a area.
      *
-     * @param area the entity to save.
+     * @param areaDTO the entity to save.
      * @return the persisted entity.
      */
-    public Area save(Area area) {
-        log.debug("Request to save Area : {}", area);
-        return areaRepository.save(area);
+    public AreaDTO save(AreaDTO areaDTO) {
+        log.debug("Request to save Area : {}", areaDTO);
+        Area area = areaMapper.toEntity(areaDTO);
+        area = areaRepository.save(area);
+        return areaMapper.toDto(area);
     }
 
     /**
      * Partially update a area.
      *
-     * @param area the entity to update partially.
+     * @param areaDTO the entity to update partially.
      * @return the persisted entity.
      */
-    public Optional<Area> partialUpdate(Area area) {
-        log.debug("Request to partially update Area : {}", area);
+    public Optional<AreaDTO> partialUpdate(AreaDTO areaDTO) {
+        log.debug("Request to partially update Area : {}", areaDTO);
 
         return areaRepository
-            .findById(area.getId())
+            .findById(areaDTO.getId())
             .map(existingArea -> {
-                if (area.getName() != null) {
-                    existingArea.setName(area.getName());
-                }
+                areaMapper.partialUpdate(existingArea, areaDTO);
 
                 return existingArea;
             })
-            .map(areaRepository::save);
+            .map(areaRepository::save)
+            .map(areaMapper::toDto);
     }
 
     /**
@@ -62,9 +70,9 @@ public class AreaService {
      * @return the list of entities.
      */
     @Transactional(readOnly = true)
-    public List<Area> findAll() {
+    public List<AreaDTO> findAll() {
         log.debug("Request to get all Areas");
-        return areaRepository.findAll();
+        return areaRepository.findAll().stream().map(areaMapper::toDto).collect(Collectors.toCollection(LinkedList::new));
     }
 
     /**
@@ -74,9 +82,9 @@ public class AreaService {
      * @return the entity.
      */
     @Transactional(readOnly = true)
-    public Optional<Area> findOne(Long id) {
+    public Optional<AreaDTO> findOne(Long id) {
         log.debug("Request to get Area : {}", id);
-        return areaRepository.findById(id);
+        return areaRepository.findById(id).map(areaMapper::toDto);
     }
 
     /**

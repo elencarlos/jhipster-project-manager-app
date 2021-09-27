@@ -9,6 +9,8 @@ import br.gov.mec.polen.IntegrationTest;
 import br.gov.mec.polen.domain.EfficiencyResult;
 import br.gov.mec.polen.repository.EfficiencyResultRepository;
 import br.gov.mec.polen.service.criteria.EfficiencyResultCriteria;
+import br.gov.mec.polen.service.dto.EfficiencyResultDTO;
+import br.gov.mec.polen.service.mapper.EfficiencyResultMapper;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
@@ -41,6 +43,9 @@ class EfficiencyResultResourceIT {
 
     @Autowired
     private EfficiencyResultRepository efficiencyResultRepository;
+
+    @Autowired
+    private EfficiencyResultMapper efficiencyResultMapper;
 
     @Autowired
     private EntityManager em;
