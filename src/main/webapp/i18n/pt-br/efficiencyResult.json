@@ -1,0 +1,16 @@
+{
+  "jpolenApp": {
+    "efficiencyResult": {
+      "home": {
+        "title": "Efficiency Results",
+        "refreshListLabel": "Atualizar lista",
+        "notFound": "Nenhum Efficiency Result encontrado"
+      },
+      "detail": {
+        "title": "Efficiency Result"
+      },
+      "id": "ID",
+      "name": "Name"
+    }
+  }
+}

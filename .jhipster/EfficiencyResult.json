@@ -1,0 +1,17 @@
+{
+  "fields": [
+    {
+      "fieldName": "name",
+      "fieldType": "String",
+      "fieldValidateRules": []
+    }
+  ],
+  "relationships": [],
+  "service": "serviceClass",
+  "dto": "no",
+  "jpaMetamodelFiltering": true,
+  "readOnly": true,
+  "pagination": "no",
+  "name": "EfficiencyResult",
+  "changelogDate": "20210927134008"
+}

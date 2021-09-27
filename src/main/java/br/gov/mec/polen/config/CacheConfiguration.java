@@ -48,6 +48,10 @@ public class CacheConfiguration {
             createCache(cm, br.gov.mec.polen.domain.User.class.getName());
             createCache(cm, br.gov.mec.polen.domain.Authority.class.getName());
             createCache(cm, br.gov.mec.polen.domain.User.class.getName() + ".authorities");
+            createCache(cm, br.gov.mec.polen.domain.EfficiencyResult.class.getName());
+            createCache(cm, br.gov.mec.polen.domain.Area.class.getName());
+            createCache(cm, br.gov.mec.polen.domain.Project.class.getName());
+            createCache(cm, br.gov.mec.polen.domain.Project.class.getName() + ".areas");
             // jhipster-needle-ehcache-add-entry
         };
     }

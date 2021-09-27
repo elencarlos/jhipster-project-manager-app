@@ -1,0 +1,16 @@
+{
+  "jpolenApp": {
+    "area": {
+      "home": {
+        "title": "Areas",
+        "refreshListLabel": "Refresh list",
+        "notFound": "No Areas found"
+      },
+      "detail": {
+        "title": "Area"
+      },
+      "id": "ID",
+      "name": "Name"
+    }
+  }
+}

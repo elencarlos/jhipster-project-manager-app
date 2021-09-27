@@ -1,0 +1,30 @@
+{
+  "fields": [
+    {
+      "fieldName": "title",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "ProjectStatus",
+      "fieldValues": "SAVED,AWAIT_ANALYSIS,IN_ANALYSIS"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipName": "area",
+      "otherEntityName": "area",
+      "relationshipType": "many-to-many",
+      "otherEntityField": "name",
+      "ownerSide": true,
+      "otherEntityRelationshipName": "project"
+    }
+  ],
+  "service": "serviceClass",
+  "dto": "mapstruct",
+  "jpaMetamodelFiltering": true,
+  "readOnly": false,
+  "pagination": "infinite-scroll",
+  "name": "Project",
+  "changelogDate": "20210927135034"
+}
